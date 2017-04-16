@@ -17,6 +17,8 @@ Usage:
 * On a windows box, set it to use the wanted keyboard layout, focus on a text editor
 * Plug in the stick
 * Fix broken lines (from DEL codes), fix ' and \ which needs escaping with \
+* *Test if you can import the dictionary in python!*
+* Dump the dictionary with the languagecode (like de) in `keymaps.py`
 
 
 <br>
