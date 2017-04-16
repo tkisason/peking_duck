@@ -1,93 +1,44 @@
 # peking_duck
-HID attack payload tools for Chinese USB Leonardo clone "badUSB" sticks
+HID attack tools for [Chinese USB Leonardo clone "Beetle badUSB" sticks](http://www.ebay.com/sch/i.html?_nkw=beetle+badusb).
+Currently mostly focused on efficiently translating between english to other keymaps and assorted ops scripts
 
+This tool is pointless if you are targeting hosts with english keyboard layouts. Just use [OverThruster](https://github.com/RedLectroid/OverThruster) or [Brutal](https://github.com/Screetsec/Brutal) and you are done. If you need to attack hosts that use specific keyboard layouts (like Croatian, German, etc..) you are at the right place.
 
-# Requirements
+### Requirements
 * NicoHood HID (install it via the arduino ide)
-* Most of this toolkit should be compatible with https://github.com/RedLectroid/OverThruster
+* Most of this toolkit should be compatible with https://github.com/RedLectroid/OverThruster, some of the stuff was nicked from his project.
 
-# Description
-language_mapping.ino
+### Description
+
+`language_mapping.ino` - Use this arduino sketch to print out scancode-character dictionaries for a specific keyboard layout.
+
+Usage:
+* Load this sketch in your Beetle BadUSB
+* On a windows box, set it to use the wanted keyboard layout, focus on a text editor
+* Plug in the stick
+* Fix broken lines (from DEL codes), fix ' and \ which needs escaping with \
 
 
-keymaps.py
+<br>
+`keymaps.py` - Contains maps (dictionaries) for en,hr. Pull request for other keymaps welcome. I'll add more as i need more...
+
+<br>
+`kbdtranslate.py` - Opens a text file containing commands in en keymap, and currently translates them to hr keymap.
+
+<br>
+`payload_template.ino` - OverThruster's most basic template (Win+R , cmd, enter and execute payload).
+
+### Example usage
+* Generate your payload with empire or metasploit.
+* Save the payload in a file, let's say `mypayload`
+* run `./kbdtranslate.py mypayload`
+* Open `payload_template.ino` in arduino IDE, paste the payload into the scripts
+* Make sure you have NicoHood HID installed
+* Upload your sketch to your board and you are done.
+* Go pwn a box :)
 
 
-kbdtranslate.py
-
-# Hardware VID/PID etc.
-
-Bus 002 Device 051: ID f000:ff01
-
-~> sudo lsusb -v -d f000:ff01
-
-~> sudo lsusb -v -d f000:ff01
-
-Bus 002 Device 051: ID f000:ff01  
-Device Descriptor:
-  bLength                18
-  bDescriptorType         1
-  bcdUSB               2.00
-  bDeviceClass            0 (Defined at Interface level)
-  bDeviceSubClass         0 
-  bDeviceProtocol         0 
-  bMaxPacketSize0        64
-  idVendor           0xf000 
-  idProduct          0xff01 
-  bcdDevice            3.33
-  iManufacturer           1 Linux 3.4.39 with sunxi_usb_udc
-  iProduct                2 RNDIS/Ethernet Gadget
-  iSerial                 4 ch000001
-  bNumConfigurations      1
-  Configuration Descriptor:
-    bLength                 9
-    bDescriptorType         2
-    wTotalLength           34
-    bNumInterfaces          1
-    bConfigurationValue     2
-    iConfiguration          0 
-    bmAttributes         0xc0
-      Self Powered
-    MaxPower                2mA
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        0
-      bAlternateSetting       0
-      bNumEndpoints           1
-      bInterfaceClass         3 Human Interface Device
-      bInterfaceSubClass      0 No Subclass
-      bInterfaceProtocol      1 Keyboard
-      iInterface              3 HID Interface
-        HID Device Descriptor:
-          bLength                 9
-          bDescriptorType        33
-          bcdHID               1.01
-          bCountryCode            0 Not supported
-          bNumDescriptors         1
-          bDescriptorType        34 Report
-          wDescriptorLength      63
-         Report Descriptors: 
-           ** UNAVAILABLE **
-      Endpoint Descriptor:
-        bLength                 7
-        bDescriptorType         5
-        bEndpointAddress     0x83  EP 3 IN
-        bmAttributes            3
-          Transfer Type            Interrupt
-          Synch Type               None
-          Usage Type               Data
-        wMaxPacketSize     0x0008  1x 8 bytes
-        bInterval               4
-Device Qualifier (for other device speed):
-  bLength                10
-  bDescriptorType         6
-  bcdUSB               2.00
-  bDeviceClass            0 (Defined at Interface level)
-  bDeviceSubClass         0 
-  bDeviceProtocol         0 
-  bMaxPacketSize0        64
-  bNumConfigurations      1
-Device Status:     0x0001
-  Self Powered
-
+### To-Do:
+* My long term goal is a Empire stager for the Beetle BadUSBs and a duckyscript to beetle converter. Ideally without touching arduino ide. So, i want to run one script, specify a keyboard map run and be done. I don't want to mess with the Arduino ide.
+* Second problem is VID/PID emulation. Duckyes and BashBunnyes use specific VID/PID values to avoid the problem that windows will start installing drivers. One bypass is plugging in a Beetle, waiting some time, unplugging and plugging back in. This shortens the attack process on early (win7) hosts.
+* Report issues on the GitHub tracker for this project, ideas, collaborators, pull requests and comments welcome.
