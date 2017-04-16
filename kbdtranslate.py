@@ -19,6 +19,8 @@ def translate(infilename,origin=keymaps.en,dest=keymaps.hr):
 
 if __name__ == '__main__':
     if len(sys.argv) <= 1:
+        print 'This script translates a set of commands from one keymap'
+        print 'to another keymap. Currently supports only en->hr'
         print '[i] usage: ' + sys.argv[0] + 'input_script'
     else:
         translate(sys.argv[1])
