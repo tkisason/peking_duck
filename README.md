@@ -46,4 +46,4 @@ Usage:
 * Report issues on the GitHub tracker for this project, ideas, collaborators, pull requests and comments welcome.
 
 ### Known issues:
-* Bug on Croatian keyboard layouts - `{ and }` is wrongly translated to `Š and Đ`
+* Bug on Croatian keyboard layouts - `{ and }` is wrongly translated to `Š and Đ` - use `powershell -W Hidden -nop -noni -enc  <PAYLOAD>` (you should always use b64 encoded payloads)
