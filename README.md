@@ -44,3 +44,6 @@ Usage:
 * My long term goal is a Empire stager for the Beetle BadUSBs and a duckyscript to beetle converter. Ideally without touching arduino ide. So, i want to run one script, specify a keyboard map run and be done. I don't want to mess with the Arduino ide.
 * Second problem is VID/PID emulation. Duckyes and BashBunnyes use specific VID/PID values to avoid the problem that windows will start installing drivers. One bypass is plugging in a Beetle, waiting some time, unplugging and plugging back in. This shortens the attack process on early (win7) hosts.
 * Report issues on the GitHub tracker for this project, ideas, collaborators, pull requests and comments welcome.
+
+### Known issues:
+* Bug on Croatian keyboard layouts - `{ and }` is wrongly translated to `Š and Đ`
